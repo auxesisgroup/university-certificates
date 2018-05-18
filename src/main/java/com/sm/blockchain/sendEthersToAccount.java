@@ -27,6 +27,9 @@ public class sendEthersToAccount {
 	Credentials creds = Credentials.create(senderPrivKey);
 	static Web3j web3 = Web3j.build(new HttpService("http://138.197.111.208:8545"));
 	final static Logger logger = Logger.getLogger(masterConstractImp.class);
+
+	BigInteger _garPrice = new BigInteger("99999999999");
+
 	public TransactionReceipt sendEther(Credentials credentials, String address) {
 		TransactionReceipt transactionReceipt = new TransactionReceipt();
 		try {
@@ -46,7 +49,6 @@ public class sendEthersToAccount {
 					.ethGetTransactionCount(creds.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
 			BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 			BigInteger _gasLimit = BigInteger.valueOf(4099756);
-			BigInteger _garPrice = BigInteger.valueOf(4000000);
 			byte[] byteArray = certDetails.toString().getBytes();
 			String data = javax.xml.bind.DatatypeConverter.printHexBinary(byteArray);
 			RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, _garPrice, _gasLimit,
@@ -59,7 +61,6 @@ public class sendEthersToAccount {
 			logger.error("Expection :" + ex);
 			return null;
 		}
-
 	}
 
 }
